@@ -9,7 +9,7 @@
 #import "RootViewController.h"
 
 @implementation RootViewController
-@synthesize imgPicker, face, scrollView;
+@synthesize imgPicker, snapshot, scrollView;
 
 - (void) shoot{
     imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
@@ -32,34 +32,38 @@
     
 }
 
-- (void) snapshot {
+- (void) createSnapshot {
     
     UIGraphicsBeginImageContext(self.view.bounds.size);
-    
     [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    
     UIGraphicsEndImageContext();
     
     CGRect rect;
-    
     rect = CGRectMake(270, 10, 744, 426);
     CGImageRef imageRef = CGImageCreateWithImageInRect([viewImage CGImage], rect);
     
     UIImage *img = [UIImage imageWithCGImage:imageRef];
-    
-    //UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil);
-    background.image = nil;
+    UIImageWriteToSavedPhotosAlbum(img, nil, nil, nil);
     CGImageRelease(imageRef);
-    face.image = img;
-    [face.layer setBorderColor: [[UIColor whiteColor] CGColor]];
-    [face.layer setBorderWidth: 5.0];
-    [self.view addSubview:face];
+    
+    snapshot.image = img;
+    [snapshot.layer setBorderColor: [[UIColor whiteColor] CGColor]];
+    [snapshot.layer setBorderWidth: 5.0];
+    snapshot.hidden = NO;
+    facebook.hidden = NO;
+    
+    background.backgroundColor = [UIColor blackColor];
+    background.image = nil;
+    dishOptions.hidden = YES;
+    genderOptions.hidden = YES;
+    shootButton.hidden = YES;
+    shareButton.hidden = YES;
+    
+    
 }
 
 - (void) changeDetails {
-    
     
     NSString *gender;
     NSString *dish;
@@ -85,67 +89,66 @@
             break;
     }
     
-    NSLog(@"current gender %@", gender);
-    NSLog(@"current dish %@", dish);
     NSString *fileName = [NSString stringWithFormat:@"photoapp-%@-%@.png",gender,dish];
     background.image = [UIImage imageNamed:fileName];
     
 }
+
+
 - (void) loadView {
     [super loadView];
+    
     imgPicker = [[UIImagePickerController alloc] init];
     imgPicker.allowsEditing = YES;
     imgPicker.delegate = self;
     imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    
-    
-    
-    overlay = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, [UIImage imageNamed:@"photoapp.png"].size.width, [UIImage imageNamed:@"photoapp.png"].size.height)];
-    overlay.image = [UIImage imageNamed:@"photoapp.png"];
-    overlay.contentMode = UIViewContentModeTop;
-    
-    
-    
+        
+    maskedImage = [[UIImageView alloc] initWithFrame: CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    maskedImage.contentMode = UIViewContentModeTop;
     
     scrollView = [[UIScrollView alloc]initWithFrame: CGRectMake(820, 100, 200, 250) ];
-    //scrollView.backgroundColor = [UIColor redColor];
     scrollView.delegate = self;
     scrollView.minimumZoomScale=0.02;
     scrollView.maximumZoomScale=60.0;
     scrollView.scrollEnabled = YES;
     scrollView.showsHorizontalScrollIndicator = TRUE;
     scrollView.showsVerticalScrollIndicator = TRUE;
-    scrollView.contentSize = CGSizeMake([UIImage imageNamed:@"photoapp.png"].size.width , [UIImage imageNamed:@"photoapp.png"].size.height );//[UIImage imageNamed:@"photoapp.png"].size;
-    [scrollView addSubview:overlay];
+    scrollView.contentSize = CGSizeMake([UIImage imageNamed:@"photoapp.png"].size.width , [UIImage imageNamed:@"photoapp.png"].size.height );
+    [scrollView addSubview:maskedImage];
     [self.view addSubview:scrollView];
     
-    
     background = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"photoapp-male-parmesan-crusted-fish.png"]];
-    background.backgroundColor = [UIColor blackColor];
+    background.backgroundColor = [UIColor clearColor];
     [self.view addSubview:background];
     
-    
-    UIButton *shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	[shareButton addTarget:self  action:@selector(snapshot) forControlEvents:UIControlEventTouchDown];
+    shareButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+	[shareButton addTarget:self  action:@selector(createSnapshot) forControlEvents:UIControlEventTouchDown];
 	[shareButton setTitle:@"Final" forState:UIControlStateNormal];
     shareButton.frame = CGRectMake(850.0, 470.0, 100.0,100.0);
     [self.view addSubview:shareButton];
     
-    UIButton *shootButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    shootButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 	[shootButton addTarget:self  action:@selector(shoot) forControlEvents:UIControlEventTouchDown];
-	//[shootButton setTitle:@"Shoot" forState:UIControlStateNormal];
-    [shootButton setImage:[UIImage imageNamed:@"capture.png"] forState:UIControlStateNormal];
+	[shootButton setImage:[UIImage imageNamed:@"capture.png"] forState:UIControlStateNormal];
     shootButton.frame = CGRectMake(556.0 , 368.0, 160.0 ,60.0);
     shootButton.tag = 3;
 	[self.view addSubview:shootButton];
     
-    face = [[UIImageView alloc] initWithFrame:CGRectMake(270 - 150, 10 + 130, 744, 426)];
-    face.backgroundColor = [UIColor blueColor];
+    snapshot = [[UIImageView alloc] initWithFrame:CGRectMake(120 , 140, 744, 426)];
+    snapshot.backgroundColor = [UIColor blueColor];
+    snapshot.hidden = YES;
+    [self.view addSubview:snapshot];
+    UIImage *fbImage = [UIImage imageNamed:@"facebook.png"];
+    
+    facebook = [[UIImageView alloc] initWithFrame:CGRectMake(120, 580, fbImage.size.width, fbImage.size.height)];
+    facebook.image = fbImage;
+    facebook.backgroundColor = [UIColor blueColor];
+    facebook.hidden = YES;
+    [self.view addSubview:facebook];
     
     
     UIFont *font = [UIFont boldSystemFontOfSize:14.0f];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
-                                                           forKey:UITextAttributeFont];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     
     NSArray *genderArray = [NSArray arrayWithObjects: @"Male", @"Female",  nil];
     genderOptions = [[UISegmentedControl alloc] initWithItems:genderArray];
@@ -156,8 +159,7 @@
     [self.view addSubview:genderOptions];
     [genderOptions addTarget:self action:@selector(changeDetails) forControlEvents:UIControlEventValueChanged];
     [genderOptions release];
-    
-    
+        
     NSArray *dishArray = [NSArray arrayWithObjects: @"Parmesan Crusted Fish", @"Chicken Scaloppine with Spinach and Linguine", @"Sherry Apple Pork Chops", nil];
     dishOptions = [[UISegmentedControl alloc] initWithItems:dishArray];
     dishOptions.frame = CGRectMake(280, 620, 720, 50);
@@ -170,9 +172,9 @@
     [dishOptions addTarget:self action:@selector(changeDetails) forControlEvents:UIControlEventValueChanged];
     [dishOptions release];
 
-    
-    
 }
+
+
 #pragma mark -
 #pragma mark UIScrollView Delegate
 - (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
@@ -181,7 +183,7 @@
 - (UIView*)viewForZoomingInScrollView:(UIScrollView *)aScrollView {
     NSLog(@"%d",aScrollView.tag);
    
-    return overlay;
+    return maskedImage;
 }
 - (void)scrollViewDidEndZooming:(UIScrollView *)zoomedScrollView withView:(UIView *)view atScale:(float)scale
 {
@@ -194,8 +196,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)img editingInfo:(NSDictionary *)editInfo {
 
     scrollView.contentSize = img.size;
-    overlay.image = img;
-    //background.image = [self maskImage:img withMask:[UIImage imageNamed:@"overlaygraphic.png"]];//img;
+    maskedImage.image = img;
 	[picker dismissModalViewControllerAnimated:YES];
 }
 

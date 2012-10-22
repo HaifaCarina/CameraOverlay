@@ -10,16 +10,19 @@
 #import <QuartzCore/QuartzCore.h>
 @interface RootViewController : UIViewController <UIImagePickerControllerDelegate , UINavigationControllerDelegate, UIScrollViewDelegate> {
     UIImagePickerController *imgPicker;
-    UIImageView *face;
+    UIImageView *snapshot;
     UIScrollView *scrollView;
-    UIImageView *overlay;
+    UIImageView *maskedImage;
     UIImageView *background;
     UISegmentedControl *dishOptions;
     UISegmentedControl *genderOptions;
+    UIButton *shareButton;
+    UIButton *shootButton;
+    UIImageView *facebook;
 }
 
 @property (nonatomic, retain) UIImagePickerController *imgPicker;
-@property (nonatomic, retain) UIImageView *face;
+@property (nonatomic, retain) UIImageView *snapshot;
 @property (nonatomic, retain) UIScrollView *scrollView;
 
 

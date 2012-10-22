@@ -13,6 +13,7 @@
 		A57E0D3A16355BEE005AD22B /* photoapp-male-chicken-scaloppine-with-spinach-and-linguine.png in Resources */ = {isa = PBXBuildFile; fileRef = A57E0D3416355BEE005AD22B /* photoapp-male-chicken-scaloppine-with-spinach-and-linguine.png */; };
 		A57E0D3B16355BEE005AD22B /* photoapp-male-parmesan-crusted-fish.png in Resources */ = {isa = PBXBuildFile; fileRef = A57E0D3516355BEE005AD22B /* photoapp-male-parmesan-crusted-fish.png */; };
 		A57E0D3C16355BEE005AD22B /* photoapp-male-sherry-apple-pork-chops.png in Resources */ = {isa = PBXBuildFile; fileRef = A57E0D3616355BEE005AD22B /* photoapp-male-sherry-apple-pork-chops.png */; };
+		A5BA1E991635633F0072A18C /* facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = A5BA1E981635633F0072A18C /* facebook.png */; };
 		A5D53CDA1634FCC600D873F2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D53CD91634FCC600D873F2 /* UIKit.framework */; };
 		A5D53CDC1634FCC600D873F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D53CDB1634FCC600D873F2 /* Foundation.framework */; };
 		A5D53CDE1634FCC600D873F2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5D53CDD1634FCC600D873F2 /* CoreGraphics.framework */; };
@@ -37,6 +38,7 @@
 		A57E0D3416355BEE005AD22B /* photoapp-male-chicken-scaloppine-with-spinach-and-linguine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoapp-male-chicken-scaloppine-with-spinach-and-linguine.png"; sourceTree = "<group>"; };
 		A57E0D3516355BEE005AD22B /* photoapp-male-parmesan-crusted-fish.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoapp-male-parmesan-crusted-fish.png"; sourceTree = "<group>"; };
 		A57E0D3616355BEE005AD22B /* photoapp-male-sherry-apple-pork-chops.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photoapp-male-sherry-apple-pork-chops.png"; sourceTree = "<group>"; };
+		A5BA1E981635633F0072A18C /* facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = facebook.png; sourceTree = "<group>"; };
 		A5D53CD51634FCC600D873F2 /* CameraOverlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraOverlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5D53CD91634FCC600D873F2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A5D53CDB1634FCC600D873F2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -123,6 +125,7 @@
 		A5D53CE21634FCC600D873F2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A5BA1E981635633F0072A18C /* facebook.png */,
 				A57E0D3116355BEE005AD22B /* photoapp-female-chicken-scaloppine-with-spinach-and-linguine.png */,
 				A57E0D3216355BEE005AD22B /* photoapp-female-parmesan-crusted-fish.png */,
 				A57E0D3316355BEE005AD22B /* photoapp-female-sherry-apple-pork-chops.png */,
@@ -202,6 +205,7 @@
 				A57E0D3A16355BEE005AD22B /* photoapp-male-chicken-scaloppine-with-spinach-and-linguine.png in Resources */,
 				A57E0D3B16355BEE005AD22B /* photoapp-male-parmesan-crusted-fish.png in Resources */,
 				A57E0D3C16355BEE005AD22B /* photoapp-male-sherry-apple-pork-chops.png in Resources */,
+				A5BA1E991635633F0072A18C /* facebook.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
